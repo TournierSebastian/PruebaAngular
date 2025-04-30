@@ -1,14 +1,14 @@
 <div>
-    <button (click)="Logout()" class="logout-button">Cerrar sección</button>
+    <button (click)="Logout()" class="logout-button">Cerrar sesion</button>
     <div  class="container">
     <h1>Animales-Lite</h1>
 
     <div class="filter">
         <h3>Selecciona el estado</h3>
         <select [(ngModel)]="status" (ngModelChange)="onStatusChange()" class="status">
-            <option value="available">Available</option>
-            <option value="pending">Pending</option>
-            <option value="sold">Sold</option>
+            <option value="available">Disponible</option>
+            <option value="pending">Pendiente</option>
+            <option value="sold">Disponible</option>
         </select>
     </div>
     <div>
