@@ -38,6 +38,9 @@ export class PetComponent {
     }
   }
 
+  reloadpage(){
+    this.loadPets()
+  }
 
   ngOnInit() {
     this.loadPets()

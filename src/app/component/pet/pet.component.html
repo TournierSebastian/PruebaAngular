@@ -1,7 +1,6 @@
 <div class="container">
     <h1>Animales-Lite</h1>
 
-    <!-- Filtro por estado -->
     <div class="filter">
         <h3>Selecciona el estado</h3>
         <select [(ngModel)]="status" (ngModelChange)="onStatusChange()" class="status">
@@ -9,6 +8,9 @@
             <option value="pending">Pending</option>
             <option value="sold">Sold</option>
         </select>
+    </div>
+    <div>
+        <button class="recharge" (click)="reloadpage()">Recargar</button>
     </div>
 
     <div class="pet-list">

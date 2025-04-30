@@ -33,7 +33,6 @@ export class FormEditComponent {
     };
     
     console.log('updatedPet:', this.updatedPet);
-    alert(this.pet.id)
     this.petUpdated.emit(this.updatedPet); 
 
   }

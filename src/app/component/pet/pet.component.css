@@ -38,6 +38,7 @@
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
   }
   
   .pet-card:hover {
@@ -113,3 +114,16 @@
   }
   
 
+.recharge{
+  background-color: rgba(29, 184, 29, 0.774);
+  color: white;
+  padding: 8px 15px 8px 15px;
+  border-radius: 15px;
+  border-color: white;
+  transition: all 0.3s ease; 
+  transform: scale(1);
+}
+.recharge:hover{
+  background-color: rgba(30, 153, 30, 0.774);
+  transform: scale(1.05)
+}
