@@ -11,8 +11,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class FormEditComponent {
   @Input() pet: any;
+  @Input() isEditMode: boolean = false; 
   @Output() petUpdated = new EventEmitter<Pet>();
+  @Output() petCreated = new EventEmitter<Pet>(); 
 
+  petId?: number; 
   name: string = '';
   categories: Category = {} as Category;
   photoUrl: string = '';
@@ -20,21 +23,40 @@ export class FormEditComponent {
   Tag: Tag[] = []
   idTag: number = 0
   statusform: string = 'available'
-  updatedPet: Pet = {} as Pet
+  petData: Pet = {} as Pet
 
   handleEdit() {
-    this.updatedPet = {
-      id: this.pet.id, 
+    this.petData = {
+      id: this.isEditMode ? this.pet.id : this.petId , 
       category: this.categories,
       name: this.name,
       photoUrls: [this.photoUrl],
       tags: this.Tag,
       status: this.statusform
     };
-    
-    console.log('updatedPet:', this.updatedPet);
-    this.petUpdated.emit(this.updatedPet); 
+    if (this.isEditMode) {
+      this.petUpdated.emit(this.petData);
+    } else {
+      this.petCreated.emit(this.petData);
+    }
 
+    if (!this.pet?.id) {
+      this.resetForm();
+    }
+    console.log('updatedPet:', this.petData);
+
+  }
+
+
+  resetForm() {
+    this.petId = undefined;
+    this.name = '';
+    this.categories = {} as Category;
+    this.photoUrl = '';
+    this.Tag = [];
+    this.statusform = 'available';
+    this.newTag = '';
+    this.idTag = 0;
   }
   
   addTag() {

@@ -1,5 +1,10 @@
 <form (submit)="handleEdit()">
 
+    <div *ngIf="!isEditMode">
+        <label>ID de la mascota</label>
+        <input [(ngModel)]="petId" name="petId" type="number" placeholder="ID de la mascota">
+    </div>
+
     <label>Id Categoria</label>
     <input [(ngModel)]="categories.id" name="categoryId" type="number" [placeholder]="pet?.category?.id || 'ID Categoría'">
     <label>Nombre de Categoria</label>

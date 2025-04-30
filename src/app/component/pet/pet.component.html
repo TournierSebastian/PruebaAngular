@@ -1,4 +1,6 @@
-<div class="container">
+<div>
+    <button (click)="Logout()" class="logout-button">Cerrar sección</button>
+    <div  class="container">
     <h1>Animales-Lite</h1>
 
     <div class="filter">
@@ -33,17 +35,27 @@
             </ng-container>
 
             <ng-template #editingTemplate>
-                <lucide-angular class="icon-edit" [name]="PencilOff" size="18" (click)="selectPet(pet.id)" />
-                <app-form-edit [pet]="pet" (petUpdated)="onPetUpdated($event)"></app-form-edit>
+                <lucide-angular class="icon-edit"  [name]="PencilOff" size="18" (click)="selectPet(pet.id)" />
+                <app-form-edit [pet]="pet" [isEditMode]="true" (petUpdated)="onPetUpdated($event)"></app-form-edit>
             </ng-template>
         </div>
         }
     </div>
 
-    <!-- Paginación -->
     <div class="pagination">
         <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
         <span>Página {{ currentPage }} de {{ totalPages }}</span>
         <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+    </div>
+
+</div>
+    <div class="new-pet-section">
+        <h1>Crear un nuevo animal</h1>
+        <button class="new-pet-button" (click)="showNewPetForm = !showNewPetForm">
+            {{ showNewPetForm ? 'Cancelar' : '+ Añadir animal' }}
+        </button>
+        <div *ngIf="showNewPetForm">
+            <app-form-edit [isEditMode]="false" (petCreated)="onPetCreate($event)"></app-form-edit>
+        </div>
     </div>
 </div>

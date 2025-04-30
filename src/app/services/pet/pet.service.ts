@@ -13,6 +13,9 @@ export class PetService {
   constructor(private http: HttpClient) { }
   private API_URL = 'https://petstore3.swagger.io/api/v3'
 
+  // ==============================================
+  // Services
+  // ==============================================
   getPetsByStatus(status: string): Observable<ApiResponse<Pet[]>> {
     return this.http.get<Pet[]>(`${this.API_URL}/pet/findByStatus`, {
       params: { status: status }
@@ -22,7 +25,6 @@ export class PetService {
     );
   }
 
-
   modifyPet(pet: Pet): Observable<Pet> {
 
     return this.http.put<Pet>(`${this.API_URL}/pet`, pet).pipe(
@@ -30,6 +32,15 @@ export class PetService {
     );
   }
 
+  createPet(pet: Pet): Observable<Pet>{
+    return this.http.post<Pet>(`${this.API_URL}/pet`, pet).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // ==============================================
+  // Handling errors
+  // ==============================================
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocurrió un error';
@@ -67,8 +78,6 @@ export class PetService {
       }
     }
     console.error(errorMessage, error);
-
-
     return throwError(() => new Error(errorMessage));
   }
 }

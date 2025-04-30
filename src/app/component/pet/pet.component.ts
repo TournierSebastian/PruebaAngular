@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { Pencil, PencilOff } from 'lucide-angular/src/icons';
 import { FormEditComponent } from "../form-edit/form-edit.component";
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-pet',
@@ -25,34 +26,20 @@ export class PetComponent {
   Pencil = Pencil;
   PencilOff = PencilOff;
   selectedPetId: number | null = null;
+  showNewPetForm: boolean = false;
 
 
-
-  constructor(private petService: PetService) { }
-
-  selectPet(petId: number): void {
-    if (this.selectedPetId === petId) {
-      this.selectedPetId = null;
-    } else {
-      this.selectedPetId = petId;
-    }
-  }
-
-  reloadpage(){
-    this.loadPets()
-  }
+  constructor(private petService: PetService, private authService: AuthService) { }
 
   ngOnInit() {
     this.loadPets()
   }
 
-  onStatusChange() {
-    this.loadPets(); 
-  }
 
-  onPetUpdated(updatedPet: Pet) {
-    this.updatePets(updatedPet);
-  }
+  // ==============================================
+  // PET SERVICE METHODS
+  // ==============================================
+
 
   loadPets() {
     this.loading = true;
@@ -64,7 +51,7 @@ export class PetComponent {
           this.totalPets = this.pets.length;
           this.updatePagedPets();
           this.loading = false;
-          
+
         },
         error: (error) => {
           this.error = error.message
@@ -72,16 +59,83 @@ export class PetComponent {
       }
     )
   }
-  updatePets(updatedPet: Pet){
+
+  updatePets(updatedPet: Pet) {
     this.petService.modifyPet(updatedPet).subscribe({
       next: () => {
         alert('Mascota actualizada');
         this.selectedPetId = null
-        this.loadPets(); 
+        this.loadPets();
       },
       error: (err) => console.error('Error al actualizar mascota:', err)
     });
   }
+
+  createPet(updatedPet: Pet) {
+    const x = {
+      "id": 1020,
+      "name": "Meme",
+      "category": {
+        "id": 891,
+        "name": "Meme"
+      },
+      "photoUrls": [
+        "Meme"
+      ],
+      "tags": [
+        {
+          "id": 0,
+          "name": "Meme"
+        }
+      ],
+      "status": "available"
+    }
+    this.petService.createPet(updatedPet).subscribe({
+      next: () => {
+        alert('Mascota creada');
+        this.selectedPetId = null
+        this.loadPets();
+      },
+      error: (err) => console.error('Error al actualizar mascota:', err)
+    });
+  }
+
+  // ==============================================
+  // HANDLERS
+  // ==============================================
+
+  onStatusChange() {
+    this.currentPage = 1;
+    this.loadPets();
+  }
+
+  onPetUpdated(updatedPet: Pet) {
+    this.updatePets(updatedPet);
+  }
+
+  onPetCreate(updatedPet: Pet) {
+    this.createPet(updatedPet)
+  }
+
+  reloadpage() {
+    this.loadPets()
+  }
+
+  selectPet(petId: number): void {
+    if (this.selectedPetId === petId) {
+      this.selectedPetId = null;
+    } else {
+      this.selectedPetId = petId;
+    }
+  }
+
+
+  Logout(){
+    this.authService.logout();
+  }
+  // ==============================================
+  // PAGINATION 
+  // ==============================================
 
   updatePagedPets() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -111,5 +165,7 @@ export class PetComponent {
   get totalPages() {
     return Math.ceil(this.totalPets / this.pageSize);
   }
+
+
 
 }

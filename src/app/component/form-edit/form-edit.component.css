@@ -25,6 +25,7 @@ label {
   margin-top: 0px;
   margin-bottom: 5px;
   font-weight: bold;
+  text-align: left;
 }
 
 input{
@@ -74,3 +75,4 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #e68a00;
 }
+
