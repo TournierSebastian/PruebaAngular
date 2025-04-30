@@ -1,1 +1,21 @@
-<p>login works!</p>
+<div class="content">
+
+    <div class="content-login">
+        <h3>Animales-Lite</h3>
+
+        <form (submit)="HandleLogin($event)">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" [(ngModel)]="username">
+            <label for="password">Password:</label>
+            <div class="password-wrapper">
+                <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" [(ngModel)]="password">
+                <button type="button" (click)="togglePasswordVisibility()" class="toggle-password">
+                    <lucide-angular *ngIf="!showPassword" [name]="eyeIcon" size="18" />
+                    <lucide-angular *ngIf="showPassword" [name]="eyeOffIcon" size="18" />
+                </button>
+            </div>
+            <button class="send" type="submit">Enviar</button>
+            <p *ngIf="errorinput">Revisar Datos</p>
+        </form>
+    </div>
+</div>
