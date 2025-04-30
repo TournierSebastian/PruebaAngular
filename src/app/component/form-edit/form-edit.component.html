@@ -1,0 +1,29 @@
+<form (submit)="handleEdit()">
+
+    <label>Id Categoria</label>
+    <input [(ngModel)]="categories.id" name="categoryId" type="number" [placeholder]="pet?.category?.id || 'ID Categoría'">
+    <label>Nombre de Categoria</label>
+    <input [(ngModel)]="categories.name" name="categoryName" type="text"  [placeholder]="pet?.category?.name || 'Nombre Categoría'">
+
+    <label name="name">Nombre del animal</label>
+    <input [(ngModel)]="name" name="name" type="text" [placeholder]="pet?.name || 'Nombre del animal'">
+
+    <label name="photoUrl">Url de la imagen</label>
+    <input [(ngModel)]="photoUrl" name="photoUrl" type="text" [placeholder]="(pet?.photoUrls && pet.photoUrls[0]) || 'URL de imagen'">
+
+        <label  name="idCategory">Id Tag</label>
+        <input [(ngModel)]="idTag" name="idCategory" type="number" placeholder="Id del Tag">
+        <label  name="newCategory">Nombre Tag</label>
+        <input [(ngModel)]="newTag" name="newCategory" type="text" placeholder="Agregar Tag">
+        <button type="button" (click)="addTag()">Agregar</button>
+        <button type="button" (click)="removeTag()">Eliminar</button>
+    
+
+    <select [(ngModel)]="statusform" name="statusform" >
+        <option value="available">Available</option>
+        <option value="pending">Pending</option>
+        <option value="sold">Sold</option>
+    </select>
+
+    <button type="submit">Enviar</button>
+</form>

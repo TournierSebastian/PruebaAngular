@@ -1,0 +1,47 @@
+<div class="container">
+    <h1>Animales-Lite</h1>
+
+    <!-- Filtro por estado -->
+    <div class="filter">
+        <h3>Selecciona el estado</h3>
+        <select [(ngModel)]="status" (ngModelChange)="onStatusChange()" class="status">
+            <option value="available">Available</option>
+            <option value="pending">Pending</option>
+            <option value="sold">Sold</option>
+        </select>
+    </div>
+
+    <div class="pet-list">
+        @for (pet of pagedPets; track pet.id) {
+        <div class="pet-card">
+            <ng-container *ngIf="selectedPetId !== pet.id; else editingTemplate">
+                <lucide-angular class="icon-edit" [name]="Pencil" size="18" (click)="selectPet(pet.id)" />
+                <div class="image">
+                    <p>Url de imagen: {{ pet.photoUrls }}</p>
+                </div>
+                <h2>{{ pet.name }}</h2>
+                <p class="tags">
+                    Tags:
+                    @for (tag of pet.tags; track tag.id) {
+                    <span class="tag">{{ tag.name }}</span>
+                    }
+                </p>
+                <p *ngIf="pet.category?.name">{{ pet.category?.name }}</p>
+
+            </ng-container>
+
+            <ng-template #editingTemplate>
+                <lucide-angular class="icon-edit" [name]="PencilOff" size="18" (click)="selectPet(pet.id)" />
+                <app-form-edit [pet]="pet" (petUpdated)="onPetUpdated($event)"></app-form-edit>
+            </ng-template>
+        </div>
+        }
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+    </div>
+</div>

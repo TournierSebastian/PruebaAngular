@@ -16,6 +16,7 @@ import { LoginService } from '../../services/auth/login.service';
 export class LoginComponent {
   loading: boolean = false;
   error: string | null = null
+  
   eyeIcon = LucideEye;
   eyeOffIcon = LucideEyeOff;
   showPassword = false;
@@ -58,5 +59,24 @@ export class LoginComponent {
     });
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
