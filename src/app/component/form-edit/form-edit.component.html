@@ -3,32 +3,40 @@
     <div *ngIf="!isEditMode">
         <label>ID de la mascota</label>
         <input [(ngModel)]="petId" name="petId" type="number" placeholder="ID de la mascota">
+        <p *ngIf="errorform && !petId" class="error">Ingresar id de la mascota</p>
+
     </div>
 
     <label>Id Categoria</label>
-    <input [(ngModel)]="categories.id" name="categoryId" type="number" [placeholder]="pet?.category?.id || 'ID Categoría'">
+    <input [(ngModel)]="categories.id" name="categoryId" type="number"
+        [placeholder]="pet?.category?.id || 'ID Categoría'">
+    <p *ngIf="errorform && !categories.id" class="error">Ingresar categoria</p>
     <label>Nombre de Categoria</label>
-    <input [(ngModel)]="categories.name" name="categoryName" type="text"  [placeholder]="pet?.category?.name || 'Nombre Categoría'">
+    <input [(ngModel)]="categories.name" name="categoryName" type="text"
+        [placeholder]="pet?.category?.name || 'Nombre Categoría'">
+    <p *ngIf="errorform && !categories.name" class="error">Ingresar nombre de categoria</p>
 
     <label name="name">Nombre del animal</label>
     <input [(ngModel)]="name" name="name" type="text" [placeholder]="pet?.name || 'Nombre del animal'">
+    <p *ngIf="errorform && !name" class="error">Ingresar nombre de animal</p>
 
     <label name="photoUrl">Url de la imagen</label>
-    <input [(ngModel)]="photoUrl" name="photoUrl" type="text" [placeholder]="(pet?.photoUrls && pet.photoUrls[0]) || 'URL de imagen'">
+    <input [(ngModel)]="photoUrl" name="photoUrl" type="text"
+        [placeholder]="(pet?.photoUrls && pet.photoUrls[0]) || 'URL de imagen'">
+    <p *ngIf="errorform && !photoUrl" class="error">Ingresar url de la imagen</p>
 
-        <label  name="idCategory">Id Tag</label>
-        <input [(ngModel)]="idTag" name="idCategory" type="number" placeholder="Id del Tag">
-        <label  name="newCategory">Nombre Tag</label>
-        <input [(ngModel)]="newTag" name="newCategory" type="text" placeholder="Agregar Tag">
-        <button type="button" (click)="addTag()">Agregar</button>
-        <button type="button" (click)="removeTag()">Eliminar</button>
-    
+    <label name="idCategory">Id Tag</label>
+    <input [(ngModel)]="idTag" name="idCategory" type="number" placeholder="Id del Tag">
+    <label name="newCategory">Nombre Tag</label>
+    <input [(ngModel)]="newTag" name="newCategory" type="text" placeholder="Agregar Tag">
+    <button type="button" (click)="addTag()">Agregar</button>
+    <button type="button" (click)="removeTag()">Eliminar</button>
 
-    <select [(ngModel)]="statusform" name="statusform" >
+
+    <select [(ngModel)]="statusform" name="statusform">
         <option value="available">Disponible</option>
         <option value="pending">Pendiente</option>
         <option value="sold">Vendido</option>
     </select>
-
     <button type="submit">Enviar</button>
 </form>

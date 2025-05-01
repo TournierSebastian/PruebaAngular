@@ -25,10 +25,42 @@ export class FormEditComponent {
   idTag: number = 0
   statusform: string = 'available'
   petData: Pet = {} as Pet
+  errorform: Boolean = false
 
   constructor(private toastService: ToastrService) { }
 
   handleEdit() {
+
+    if (this.isEditMode && (
+      !this.petId ||
+      !this.categories.id ||
+      !this.categories.name ||
+      !this.name ||
+      !this.photoUrl ||
+      !this.statusform
+    )) {
+      this.errorform = true;
+      this.toastService.error('Complete los campos')
+      return;
+    } else if (!this.isEditMode && (
+      !this.petId ||
+      !this.petId ||
+      !this.categories.id ||
+      !this.categories.name ||
+      !this.name ||
+      !this.photoUrl ||
+      !this.statusform)) {
+
+      this.errorform = true;
+      this.toastService.error('Complete los campos')
+      return;
+    }
+
+    if (!this.petId || !this.categories.id || !this.categories.name ||
+      !this.name || !this.photoUrl || !this.statusform) {
+
+    }
+
     this.petData = {
       id: this.isEditMode ? this.pet.id : this.petId,
       category: this.categories,
