@@ -32,11 +32,21 @@ export class PetService {
     );
   }
 
-  createPet(pet: Pet): Observable<Pet>{
+  createPet(pet: Pet){
     return this.http.post<Pet>(`${this.API_URL}/pet`, pet).pipe(
       catchError(this.handleError)
     );
   }
+
+  deletePet(id: number): Observable<void> {
+    return this.http.delete(`${this.API_URL}/pet/${id}`, { 
+        responseType: 'text' 
+    }).pipe(
+        map(() => {}), 
+        catchError(this.handleError)
+    );
+}
+
 
   // ==============================================
   // Handling errors

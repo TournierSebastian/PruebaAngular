@@ -3,7 +3,7 @@ import { Category, Pet, Tag } from '../../interfaces/modelpet';
 import { PetService } from '../../services/pet/pet.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule } from 'lucide-angular';
+import { LucideAngularModule, Trash } from 'lucide-angular';
 import { Pencil, PencilOff } from 'lucide-angular/src/icons';
 import { FormEditComponent } from "../../component/form-edit/form-edit.component";
 import { AuthService } from '../../services/auth/auth.service';
@@ -28,6 +28,7 @@ export class PetComponent {
   status: string = 'available'
   Pencil = Pencil;
   PencilOff = PencilOff;
+  Trash = Trash;
   selectedPetId: number | null = null;
   showNewPetForm: boolean = false;
 
@@ -67,7 +68,6 @@ export class PetComponent {
   updatePets(updatedPet: Pet) {
     this.petService.modifyPet(updatedPet).subscribe({
       next: () => {
-        this.selectedPetId = null
         this.loadPets();
         this.toastService.success('Mascota Actualizada')
       },
@@ -110,6 +110,19 @@ export class PetComponent {
     });
   }
 
+  deltePet(id: number){
+    this.petService.deletePet(id).subscribe({
+      next: () => {
+        this.selectedPetId = null
+        this.toastService.success('Mascota eliminada Correctamente')
+        this.loadPets();
+      },
+      error: (err) => {
+        console.error('Error al eliminar mascota:', err);
+        this.toastService.error('Error al eliminar la mascota');
+      }
+    });
+  }
   // ==============================================
   // HANDLERS
   // ==============================================
@@ -118,7 +131,6 @@ export class PetComponent {
     this.currentPage = 1;
     this.loadPets();
   }
-
   onPetUpdated(updatedPet: Pet) {
     this.updatePets(updatedPet);
   }
@@ -127,6 +139,9 @@ export class PetComponent {
     this.createPet(updatedPet)
   }
 
+  onPetDelte(id: number){
+    this.deltePet(id);
+  }
   reloadpage() {
     this.loadPets()
   }

@@ -62,6 +62,7 @@
     color: #777;
     margin: 0.5rem 0;
     word-wrap: break-word;
+    text-align: center;
   }
   
 
@@ -120,6 +121,15 @@
   }
   
 
+  .icon-delte{
+    float: left;
+    cursor: pointer;
+  }
+  
+  .icon-delte:hover{
+    color:#005b7f;
+  }
+  
 .recharge{
   background-color: rgba(22, 153, 103, 0.774);
   color: white;

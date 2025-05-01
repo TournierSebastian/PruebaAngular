@@ -19,6 +19,7 @@
             <div class="pet-card">
                 <ng-container *ngIf="selectedPetId !== pet.id; else editingTemplate">
                     <lucide-angular class="icon-edit" [name]="Pencil" size="18" (click)="selectPet(pet.id)" />
+                    <lucide-angular class="icon-delte" [name]="Trash" size="18" (click)="onPetDelte(pet.id)" />
                     <div class="image">
                         <p>Url de imagen: {{ pet.photoUrls }}</p>
                     </div>
