@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category, Pet, Tag } from '../../interfaces/modelpet';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form-edit',
@@ -11,11 +12,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class FormEditComponent {
   @Input() pet: any;
-  @Input() isEditMode: boolean = false; 
+  @Input() isEditMode: boolean = false;
   @Output() petUpdated = new EventEmitter<Pet>();
-  @Output() petCreated = new EventEmitter<Pet>(); 
+  @Output() petCreated = new EventEmitter<Pet>();
 
-  petId?: number; 
+  petId?: number;
   name: string = '';
   categories: Category = {} as Category;
   photoUrl: string = '';
@@ -25,9 +26,11 @@ export class FormEditComponent {
   statusform: string = 'available'
   petData: Pet = {} as Pet
 
+  constructor(private toastService: ToastrService) { }
+
   handleEdit() {
     this.petData = {
-      id: this.isEditMode ? this.pet.id : this.petId , 
+      id: this.isEditMode ? this.pet.id : this.petId,
       category: this.categories,
       name: this.name,
       photoUrls: [this.photoUrl],
@@ -43,10 +46,8 @@ export class FormEditComponent {
     if (!this.pet?.id) {
       this.resetForm();
     }
-    console.log('updatedPet:', this.petData);
 
   }
-
 
   resetForm() {
     this.petId = undefined;
@@ -58,17 +59,16 @@ export class FormEditComponent {
     this.newTag = '';
     this.idTag = 0;
   }
-  
+
   addTag() {
     if (this.newTag.trim() !== '' && this.idTag > 0) {
       const nuevotag: Tag = {
         id: this.idTag,
         name: this.newTag.trim()
       };
-  
-      this.Tag.push(nuevotag);
-      alert(`Tag agregado: ID ${nuevotag.id}, Nombre: ${nuevotag.name}`);
 
+      this.Tag.push(nuevotag);
+      this.toastService.success(`Tag agregado: ID ${nuevotag.id}, Nombre: ${nuevotag.name}`);
       this.newTag = '';
       this.idTag = 0;
     }
@@ -76,7 +76,7 @@ export class FormEditComponent {
 
   removeTag() {
     this.Tag = this.Tag.filter(tag => tag.id !== this.idTag);
-    alert(`Tag con ID ${this.idTag} eliminado correctamente.`);
+    this.toastService.success(`Tag con ID: ${this.idTag} eliminado correctamente.`);
   }
 
 }

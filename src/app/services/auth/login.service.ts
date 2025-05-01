@@ -14,6 +14,10 @@ export class LoginService {
   
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
+  // Estoy conciente de que el login tiene un metodo get y envia los datos por parametros, 
+  // tambien que si enviamos los parametros vacios se completa el logeo
+  // la api que estaba en el correo lo tiene creado de esta forma 
+  // Realizo esta aclaracion por las dudas
   Login(username: string, password: string): Observable<string> {
     const params = new HttpParams()
       .set('username', username)
@@ -70,7 +74,6 @@ export class LoginService {
     }
      console.error(errorMessage, error);
     
-
     return throwError(() => new Error(errorMessage));
   }
 }

@@ -7,6 +7,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { Pencil, PencilOff } from 'lucide-angular/src/icons';
 import { FormEditComponent } from "../form-edit/form-edit.component";
 import { AuthService } from '../../services/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pet',
@@ -29,7 +30,7 @@ export class PetComponent {
   showNewPetForm: boolean = false;
 
 
-  constructor(private petService: PetService, private authService: AuthService) { }
+  constructor(private petService: PetService, private authService: AuthService, private toastService: ToastrService) { }
 
   ngOnInit() {
     this.loadPets()
@@ -51,10 +52,11 @@ export class PetComponent {
           this.totalPets = this.pets.length;
           this.updatePagedPets();
           this.loading = false;
-
         },
         error: (error) => {
           this.error = error.message
+          this.toastService.error('Error al cargar mascotas');
+
         }
       }
     )
@@ -63,11 +65,14 @@ export class PetComponent {
   updatePets(updatedPet: Pet) {
     this.petService.modifyPet(updatedPet).subscribe({
       next: () => {
-        alert('Mascota actualizada');
         this.selectedPetId = null
         this.loadPets();
+        this.toastService.success('Mascota Actualizada')
       },
-      error: (err) => console.error('Error al actualizar mascota:', err)
+      error: (err) => {
+        console.error('Error al actualizar mascota:', err);
+        this.toastService.error('Error al actualizar la mascota');
+      }
     });
   }
 
@@ -92,11 +97,14 @@ export class PetComponent {
     }
     this.petService.createPet(updatedPet).subscribe({
       next: () => {
-        alert('Mascota creada');
         this.selectedPetId = null
+        this.toastService.success('Mascota creada Correctamente')
         this.loadPets();
       },
-      error: (err) => console.error('Error al actualizar mascota:', err)
+      error: (err) => {
+        console.error('Error al crear mascota:', err);
+        this.toastService.error('Error al crear la mascota');
+      }
     });
   }
 
@@ -130,7 +138,7 @@ export class PetComponent {
   }
 
 
-  Logout(){
+  Logout() {
     this.authService.logout();
   }
   // ==============================================
