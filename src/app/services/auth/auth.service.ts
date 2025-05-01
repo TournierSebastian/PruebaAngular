@@ -12,12 +12,14 @@ export class AuthService {
     return !!token; 
   }
 
-  login(token: string): void {
+  login(token: string, username: string): void {
     localStorage.setItem('authToken', token);
+    localStorage.setItem('username', username);
   }
 
   logout(): void {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('username');
     this.router.navigate(['']);
   }
 

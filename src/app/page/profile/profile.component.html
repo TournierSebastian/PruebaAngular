@@ -1,6 +1,83 @@
-
 <app-navbar></app-navbar>
-<p>profile works!</p>
+<div class="profile-container">
 
+    <div class="profile-card">
+        <div class="card-header">
+            <h2>Perfil de Usuario</h2>
+        </div>
+        <div *ngIf="error" class="error-message">
+            Este perfil no tiene datos cargados
+        </div>
+        <div class="card-body" *ngIf="!isEditing && !error">
+            <div class="profile-info">
+                <div class="profile-header">
+                    <h2>{{ profile.username }}</h2>
+                </div>
+                <div class="profile-details">
+                    <ul>
+                        <li>
+                            <span class="detail-label">ID:</span>
+                            <span class="detail-value">{{ profile.id }}</span>
+                        </li>
+                        <li>
+                            <span class="detail-label">Nombre:</span>
+                            <span class="detail-value">{{ profile.firstName }} {{ profile.lastName }}</span>
+                        </li>
+                        <li>
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value">{{ profile.email }}</span>
+                        </li>
+                        <li>
+                            <span class="detail-label">Teléfono:</span>
+                            <span class="detail-value">{{ profile.phone || 'No proporcionado' }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-<button (click)="Logout()" class="logout-button">Cerrar sesion</button>
+        <!-- Edit Form -->
+        <div class="edit-form" *ngIf="isEditing">
+            <form (ngSubmit)="saveProfile()" #profileForm="ngForm">
+                <div class="form-group">
+                    <label for="username">Nombre de usuario</label>
+                    <input type="text" id="username" name="username" [(ngModel)]="editProfile.username" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Nombre</label>
+                        <input type="text" id="firstName" name="firstName" [(ngModel)]="editProfile.firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Apellido</label>
+                        <input type="text" id="lastName" name="lastName" [(ngModel)]="editProfile.lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" [(ngModel)]="editProfile.email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone" [(ngModel)]="editProfile.phone">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" (click)="cancelEdit()">Cancelar</button>
+                    <button type="submit" class="btn btn-save" [disabled]="!profileForm.valid">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card-footer" *ngIf="!isEditing">
+            <button class="btn btn-edit" (click)="startEditing()">Editar Perfil</button>
+        </div>
+    </div>
+
+    <button (click)="Logout()" class="logout-button">
+        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+    </button>
+</div>

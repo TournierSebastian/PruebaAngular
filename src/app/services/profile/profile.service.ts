@@ -1,45 +1,36 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError, map, Observable, tap, throwError } from 'rxjs';
-import { AuthService } from './auth.service';
-
+import { catchError, map, Observable, throwError } from 'rxjs';
+import { ApiResponse } from '../../interfaces/apiResponse';
+import { Profile } from '../../interfaces/profile';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class ProfileService {
 
-  private API_URL = "https://petstore3.swagger.io/api/v3"
-  
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
-  // Estoy conciente de que el login tiene un metodo get y envia los datos por parametros, 
-  // tambien que si enviamos los parametros vacios se completa el logeo
-  // la api que estaba en el correo lo tiene creado de esta forma 
-  // Realizo esta aclaracion por las dudas
-  Login(username: string, password: string): Observable<string> {
-    const params = new HttpParams()
-      .set('username', username)
-      .set('password', password);
-    
-    return this.http.get(`${this.API_URL}/user/login`, {
-      params,
-      responseType: 'text' 
-    }).pipe(
-      tap((response: string) => {
-        const token = response.split(': ')[1]; 
-        this.authService.login(token, username)
-        this.router.navigate(['/inicio']);
-      }),
+  private API_URL = 'https://petstore3.swagger.io/api/v3'
+
+  constructor(private http: HttpClient) { }
+
+
+  getProfile(username: string): Observable<ApiResponse<Profile>> {
+    return this.http.get<Profile>(`${this.API_URL}/user/${username}`).pipe(
+      map((data) => ({ data } as ApiResponse<Profile>)),
       catchError(this.handleError)
     );
   }
-  
-  
+
+  updateProfile(user: Profile, username: string): Observable<Profile>{
+     return this.http.put<Profile>(`${this.API_URL}/user/${username}`,user).pipe(
+          catchError(this.handleError)
+        );
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocurrió un error';
-    
+
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
@@ -72,8 +63,9 @@ export class LoginService {
           errorMessage = `Error ${error.status}: ${error.statusText || 'Error desconocido'}`;
       }
     }
-     console.error(errorMessage, error);
-    
+    console.error(errorMessage, error);
     return throwError(() => new Error(errorMessage));
   }
+
+
 }
