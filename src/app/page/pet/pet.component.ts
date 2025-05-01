@@ -5,23 +5,25 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { Pencil, PencilOff } from 'lucide-angular/src/icons';
-import { FormEditComponent } from "../form-edit/form-edit.component";
+import { FormEditComponent } from "../../component/form-edit/form-edit.component";
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { NavbarComponent } from "../../component/navbar/navbar.component";
 
 @Component({
   selector: 'app-pet',
-  imports: [FormsModule, CommonModule, LucideAngularModule, FormEditComponent],
+  imports: [FormsModule, CommonModule, LucideAngularModule, FormEditComponent, NavbarComponent],
   templateUrl: './pet.component.html',
   styleUrl: './pet.component.css'
 })
 export class PetComponent {
+  
   loading: boolean = false;
   error: string | null = null
   pets: Pet[] = [];
   pagedPets: Pet[] = [];
   currentPage = 1;
-  pageSize = 9;
+  pageSize = 12;
   totalPets: number = 0;
   status: string = 'available'
   Pencil = Pencil;
@@ -30,7 +32,7 @@ export class PetComponent {
   showNewPetForm: boolean = false;
 
 
-  constructor(private petService: PetService, private authService: AuthService, private toastService: ToastrService) { }
+  constructor(private petService: PetService, private toastService: ToastrService) { }
 
   ngOnInit() {
     this.loadPets()
@@ -138,9 +140,7 @@ export class PetComponent {
   }
 
 
-  Logout() {
-    this.authService.logout();
-  }
+ 
   // ==============================================
   // PAGINATION 
   // ==============================================

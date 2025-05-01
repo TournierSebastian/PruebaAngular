@@ -1,0 +1,60 @@
+<app-navbar></app-navbar>
+
+<div>
+    <div class="container">
+        <div class="filter" id="pet-list">
+            <h3>Selecciona el estado:  </h3>
+            <select [(ngModel)]="status" (ngModelChange)="onStatusChange()" class="status">
+                <option value="available">Disponible</option>
+                <option value="pending">Pendiente</option>
+                <option value="sold">Vendido</option>
+            </select>
+        </div>
+        <div>
+            <button class="recharge" (click)="reloadpage()">Recargar</button>
+        </div>
+
+        <div class="pet-list">
+            @for (pet of pagedPets; track pet.id) {
+            <div class="pet-card">
+                <ng-container *ngIf="selectedPetId !== pet.id; else editingTemplate">
+                    <lucide-angular class="icon-edit" [name]="Pencil" size="18" (click)="selectPet(pet.id)" />
+                    <div class="image">
+                        <p>Url de imagen: {{ pet.photoUrls }}</p>
+                    </div>
+                    <h2>{{ pet.name }}</h2>
+                    <p class="tags">
+                        Tags:
+                        @for (tag of pet.tags; track tag.id) {
+                        <span class="tag">{{ tag.name }}</span>
+                        }
+                    </p>
+                    <p *ngIf="pet.category?.name">{{ pet.category?.name }}</p>
+
+                </ng-container>
+
+                <ng-template #editingTemplate>
+                    <lucide-angular class="icon-edit" [name]="PencilOff" size="18" (click)="selectPet(pet.id)" />
+                    <app-form-edit [pet]="pet" [isEditMode]="true" (petUpdated)="onPetUpdated($event)"></app-form-edit>
+                </ng-template>
+            </div>
+            }
+        </div>
+
+        <div class="pagination">
+            <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+            <span>Página {{ currentPage }} de {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+        </div>
+
+    </div>
+    <div class="new-pet-section" id="new-pet-section">
+        <h1>Crear un nuevo animal</h1>
+        <button class="new-pet-button" (click)="showNewPetForm = !showNewPetForm">
+            {{ showNewPetForm ? 'Cancelar' : '+ Añadir animal' }}
+        </button>
+        <div *ngIf="showNewPetForm">
+            <app-form-edit [isEditMode]="false" (petCreated)="onPetCreate($event)"></app-form-edit>
+        </div>
+    </div>
+</div>

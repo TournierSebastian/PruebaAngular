@@ -1,8 +1,7 @@
 .container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 1rem;
-    background-color: #f9f9f9;
+    margin: 20px;
+    padding: 20px;
+
   }
   
   h1 {
@@ -11,10 +10,15 @@
   }
   
   .filter {
-    margin-bottom: 1.5rem;
-    text-align: center;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  
+  .filter h3{
+    margin: 0;
+    padding: 0;
+  }
   .status {
     padding: 0.5rem;
     font-size: 1rem;
@@ -35,9 +39,11 @@
     background-color: #ffffff;
     padding: 1rem;
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px #05494181;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     
+    border: solid 2px;
+    border-color: #0549413f;
   }
   
   .pet-card:hover {
@@ -86,14 +92,15 @@
     margin: 0 0.5rem;
     border: none;
     background-color: #00796b;
-    color: white;
+    color: rgb(255, 255, 255);
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
   }
-  
+
+
   .pagination button:disabled {
-    background-color: #ccc;
+    background-color: #979393;
     cursor: default;
   }
   
@@ -101,7 +108,7 @@
     font-size: 1rem;
     margin: 0 1rem;
   }
-  
+
 
   .icon-edit {
     float: right;
@@ -114,14 +121,15 @@
   
 
 .recharge{
-  background-color: rgba(29, 184, 29, 0.774);
+  background-color: rgba(22, 153, 103, 0.774);
   color: white;
   padding: 8px 15px 8px 15px;
   border-radius: 15px;
   border-color: white;
+  margin-bottom: 15px;
 }
 .recharge:hover{
-  background-color: rgba(30, 153, 30, 0.774);
+  background-color: rgba(18, 128, 85, 0.774);
 }
 
 
@@ -130,18 +138,22 @@
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
+  max-width: 1000px;
+  margin: auto;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .new-pet-section h1 {
-  color: #2c3e50;
+  background: linear-gradient(to right, #2874a6, #239b56);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 15px;
   font-size: 2rem;
 }
-
 .new-pet-button {
-  background-color: #4CAF50;
+  background-color: rgba(22, 153, 103, 0.774);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -153,18 +165,21 @@
 }
 
 .new-pet-button:hover {
-  background-color: #45a049;
+  background-color: rgba(18, 128, 85, 0.774);
 }
 
-.logout-button {
-  background-color: #ec7a6bf5; 
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
-.logout-button:hover {
-  background-color: #ee7262; 
+
+  
+@media (max-width: 450px) {
+  .pagination button {
+      padding: 0.3rem 0.6rem; 
+      margin: 0 0.1rem; 
+      font-size: 0.8rem; 
+      border-radius: 6px;
+  }
+  .pagination span {
+    font-size: 1rem;
+    margin: 0 0rem;
+  }
 }

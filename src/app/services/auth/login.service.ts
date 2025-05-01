@@ -30,7 +30,7 @@ export class LoginService {
       tap((response: string) => {
         const token = response.split(': ')[1]; 
         this.authService.login(token)
-        this.router.navigate(['/home']);
+        this.router.navigate(['/inicio']);
       }),
       catchError(this.handleError)
     );

@@ -1,4 +1,11 @@
 @import 'ngx-toastr/toastr';
 *{
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #d8d6d6;
+
+  }

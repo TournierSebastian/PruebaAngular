@@ -23,7 +23,7 @@
 }
 
 .toggle-password:hover {
-    color: #2162a3;
+    color: #136d56d8;
 }
 
 .content {
@@ -31,11 +31,10 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f5f5f5;
 }
 
 .content-login {
-    background-color: white;
+    background-color: #2c3e50;
     padding: 2rem 3rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -43,13 +42,14 @@
     max-width: 400px;
 }
 
-.content-login h3 {
-    color: #2162a3;
-    text-align: center;
-    margin-bottom: 2rem;
+.logo h3 {
     font-size: 1.8rem;
     font-weight: 600;
-    margin-top: 5px;
+    margin: 0;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .content-login form {
@@ -59,14 +59,16 @@
 }
 
 .content-login label {
-    color: #5883ad;
+    color: #2ae0b3ce;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin-bottom: -0.5rem;
+    padding: 0;
 }
 
 .content-login input {
     padding: 0.8rem 1rem;
+
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
@@ -74,26 +76,45 @@
     width: 90%;
 }
 
-.content-login input:focus {
+.content-login i2nput:focus {
     outline: none;
-    border-color: #5883ad;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    border-color: #2ae0b3ce;
+    box-shadow: 0 0 0 3px #136d56d8;
 }
 
 .content-login input[type="password"] {
     letter-spacing: 0.1em;
 }
 
-.send{
-    padding: 10px;
-    background-color: #5883ad;
-    border-color: #29527a;
-    border-radius: 20px;
+.send {
+    padding: 0.6rem;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    border: none;
+    border-radius: 10px;
     color: white;
-} 
-
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 6px rgba(50, 152, 219, 0.2);
+}
+.send:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(50, 152, 219, 0.3);
+}
 p{
     padding: 0;
     margin: 0;
-    color: red;
+    font-size: 1.1rem;
+    text-align: center;
+    color: rgb(90, 3, 3);
+}
+
+img{
+    width: 100px;
+}
+
+.logo{
+    text-align: center;
 }

@@ -1,0 +1,19 @@
+<nav class="navbar">
+
+
+    <div class="logo" (click)="irHome()">
+        <img src="icons/Animales-Lite.png" alt="Imagen dinámica">
+        <p>Animales-Lite</p>
+    </div>
+
+    <div class="nav-links" *ngIf="!isProfilePage">
+        <a (click)="scrollTo('pet-list')">Mostrar animales</a>
+        <a (click)="scrollTo('new-pet-section')">Añadir animales</a>
+    </div>
+
+    <div *ngIf="!isProfilePage" (click)="irAPerfil()" class="perfil">
+        Perfil
+    </div>
+
+
+</nav>
