@@ -20,8 +20,10 @@
                 <ng-container *ngIf="selectedPetId !== pet.id; else editingTemplate">
                     <lucide-angular class="icon-edit" [name]="Pencil" size="18" (click)="selectPet(pet.id)" />
                     <lucide-angular class="icon-delte" [name]="Trash" size="18" (click)="onPetDelte(pet.id)" />
+                    <!-- Aca deberia ir una imagen pero como a la api le suben informacion erronea dejo el mensaje como ejemplo -->
                     <div class="image">
                         <p>Url de imagen: {{ pet.photoUrls }}</p>
+                        <!-- <img [src]="pet.photoUrls" alt="Imagen de la mascota"> -->
                     </div>
                     <h2>{{ pet.name }}</h2>
                     <p class="tags">
